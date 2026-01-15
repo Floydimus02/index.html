@@ -821,6 +821,36 @@ scp -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/
             window.scrollTo(0, 0);
         }
     </script>
+    <script>
+        function updateUnix() {
+            const unixEl = document.getElementById('unix-display');
+            if (unixEl) {
+                unixEl.innerText = Math.floor(Date.now() / 1000);
+            }
+        }
 
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#main-nav a').forEach(el => el.classList.remove('active'));
+
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            const mainLink = document.getElementById('nav-' + tabId);
+            if (mainLink) {
+                mainLink.classList.add('active');
+            } else if (tabId.startsWith('host-project') || tabId === 'rhythm-stats') {
+                document.getElementById('nav-side-quests').classList.add('active');
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        // Initialise ticker and show about tab
+        window.onload = function() {
+            updateUnix();
+            setInterval(updateUnix, 1000);
+        };
+    </script>
 </body>
 </html>
