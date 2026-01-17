@@ -793,7 +793,7 @@ scp -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/
     </div>
 
     <footer>
-        <p>Copyleft <span class="copyleft">&copy;</span> MMXXVI Floydimus.</p>
+        <p>Copyleft <span class="copyleft">&copy;</span> <span id="year-display">MMXXVI</span>Floydimus.</p>
         <p>Best viewed <i>without</i> Internet Explorer.</p>
     </footer>
 
@@ -853,6 +853,56 @@ scp -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/
             updateUnix();
             setInterval(updateUnix, 1000);
         };
+    </script>
+
+    <script>
+    (function(){
+        // Convert integer (1..3999) to Roman numerals
+        function toRoman(num) {
+            if (typeof num !== 'number' || num <= 0 || num >= 4000) return '' + num;
+            const romans = [
+                [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
+                [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'],
+                [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']
+            ];
+            let result = '';
+            for (let i = 0; i < romans.length; i++) {
+                const [value, letter] = romans[i];
+                while (num >= value) {
+                    result += letter;
+                    num -= value;
+                }
+            }
+            return result;
+        }
+
+        function updateYear() {
+            const el = document.getElementById('year-display');
+            if (!el) return;
+            const year = new Date().getFullYear();
+            el.textContent = toRoman(year);
+        }
+
+        function msUntilNextJanFirst() {
+            const now = new Date();
+            const nextYear = now.getFullYear() + 1;
+            const nextJan = new Date(nextYear, 0, 1, 0, 0, 0, 0);
+            return nextJan.getTime() - now.getTime();
+        }
+
+        // Schedule update on load and then on each Jan 1st 00:00 local time
+        updateYear();
+        (function scheduleNext(){
+            const ms = msUntilNextJanFirst();
+            // Protect against extremely large or negative values
+            const safeMs = (typeof ms === 'number' && ms > 0) ? ms : 0;
+            setTimeout(function(){
+                updateYear();
+                // after firing, schedule again for the following year
+                scheduleNext();
+            }, safeMs);
+        })();
+    })();
     </script>
 </body>
 </html>
