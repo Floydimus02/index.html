@@ -122,15 +122,7 @@
         .tab-content.active {
             display: block;
         }
-        .tab-content.active .back-to-top {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    height: auto !important;
-    width: auto !important;
-    pointer-events: auto !important;
-}
-
+        
         ul.index-list {
             list-style-type: none;
             padding: 0;
@@ -271,8 +263,10 @@
             display: block !important;
             text-align: right;
             font-size: 0.8em;
+            position: relative;
+            z-index: 100;
             margin-top: 30px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-family: "Courier New", Courier, monospace;
         }
         .back-to-top a {
