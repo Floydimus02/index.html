@@ -590,9 +590,6 @@ scp -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/
                 <div class="code-block">reboot</div>
 
                 <div class="back-to-top">
-                <a href="javascript:void(0)" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ TOP</a>
-                </div>
-                <div class="back-to-top">
                     <a onclick="window.scrollTo(0,0)">↑ TOP</a>
                 </div>
             </section>
@@ -787,33 +784,7 @@ scp -i /path/to/your/private-key.key ubuntu@&lt;YOUR_PUBLIC_IP&gt;:/home/ubuntu/
         <p>Copyleft <span class="copyleft">&copy;</span> <span id="year-display">MMXXVI</span> Floydimus.</p>
         <p>Best viewed <i>without</i> Internet Explorer.</p>
     </footer>
-
-    <script>
-        function showTab(tabId) {
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-
-            const navLinks = document.querySelectorAll('#main-nav a');
-            navLinks.forEach(link => link.classList.remove('active'));
-
-            // Show the target section
-            const targetSection = document.getElementById(tabId);
-            if (targetSection) {
-                targetSection.classList.add('active');
-            }
-
-            // Highlight the nav link ONLY if it's one of the main header tabs
-            const navLink = document.getElementById('nav-' + tabId);
-            if (navLink) {
-                navLink.classList.add('active');
-            } else if (tabId.startsWith('host-project') || tabId === 'rhythm-stats') {
-                // Keep Side Quests highlighted if in a project sub-page
-                document.getElementById('nav-side-quests').classList.add('active');
-            }
-
-            window.scrollTo(0, 0);
-        }
-    </script>
+    
     <script>
         function updateUnix() {
             const unixEl = document.getElementById('unix-display');
