@@ -847,7 +847,7 @@
     </div><footer><p>Copyleft <span class="copyleft">&copy;</span>
         <span id="year-display">MMXXVI</span> Floydimus.
       </p><p>Best viewed <i>without</i> Internet Explorer.</p></footer><script>
-      // Force the browser to start at the top on reload/load by disabling native scroll restoration
+      // Immediate setting of scroll restoration to prevent browser jumping
       if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
       }
@@ -878,7 +878,7 @@
           location.hash = '#' + tabId;
         }
 
-        // Always scroll to the absolute top of the viewport
+        // Force scroll to top
         window.scrollTo(0, 0);
       }
 
@@ -888,6 +888,8 @@
         if (hash) {
           showTab(hash);
         }
+        // Force the scroll to the absolute top of the viewport
+        setTimeout(() => window.scrollTo(0, 0), 0);
       }
 
       // Initialise ticker and handle potential deep link
@@ -895,8 +897,6 @@
         updateUnix();
         setInterval(updateUnix, 1000);
         handleDeepLink();
-        // Fallback to ensure we are at the top on cold load
-        window.scrollTo(0, 0);
       };
 
       // Listen for browser back/forward buttons
