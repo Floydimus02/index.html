@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
 
-    <!-- Privacy & Security Headers -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; upgrade-insecure-requests;" />
     <meta http-equiv="Referrer-Policy" content="no-referrer, strict-origin-when-cross-origin" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -405,7 +404,6 @@
         <nav id="main-nav"><a onclick="showTab('about')" id="nav-about" class="active">About</a><a onclick="showTab('now')" id="nav-now">Now</a><a onclick="showTab('lab')" id="nav-lab">Lab</a><a onclick="showTab('questions?')" id="nav-questions?">Questions?</a><a onclick="showTab('contact')" id="nav-contact">Contact</a></nav>
       </header>
       <main>
-        <!-- ABOUT SECTION -->
         <section id="about" class="tab-content active">
           <p> Greetings! I am Floydimus, cruising with curiosity and a heart full of joy; thank you for dropping by. </p>
           <p>I am a creator in a world of consumers—an observer, a free thinker, and a curious soul.</p>
@@ -414,7 +412,6 @@
           <div class="unix-time">UNIX: <span id="unix-display">0000000000</span>
           </div>
         </section>
-        <!-- NOW SECTION -->
         <section id="now" class="tab-content">
           <p> In a parallel universe, I am an anthropologist, archaeologist, sound engineer, or a beachside burger-joint owner playing rock & roll all day. </p>
           <p> In this reality, I am a product management professional specialising in consumer internet, metric optimisation, and building high-performing teams where I find genuine joy in my craft of solving problems for both people and the planet. </p>
@@ -428,7 +425,6 @@
             <li> Supporting <a href="https://en.wikipedia.org/wiki/Free_software_movement" target="_blank">free software</a> and <a href="https://en.wikipedia.org/wiki/Net_neutrality" target="_blank">net neutrality</a> movements. </li>
           </ul>
         </section>
-        <!-- LAB SECTION -->
         <section id="lab" class="tab-content">
           <ul class="index-list">
             <li>
@@ -481,7 +477,6 @@
           </ul>
           <div class="batteries-note">Batteries included.</div>
         </section>
-        <!-- HOST PROJECT V3.0 DETAILS -->
         <section id="host-project-v3" class="tab-content">
           <nav>
             <a onclick="showTab('lab')">← Back to Lab</a>
@@ -665,7 +660,6 @@
             <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
           </div>
         </section>
-        <!-- HOST PROJECT V2.0 FULL DETAILS -->
         <section id="host-project-v2" class="tab-content">
           <nav>
             <a onclick="showTab('lab')">← Back to Lab</a>
@@ -737,7 +731,6 @@
             <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
           </div>
         </section>
-        <!-- HOST PROJECT V1.0 FULL DETAILS -->
         <section id="host-project-v1" class="tab-content">
           <nav>
             <a onclick="showTab('lab')">← Back to Lab</a>
@@ -795,7 +788,6 @@
             <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
           </div>
         </section>
-        <!-- RHYTHM & STATS SECTION -->
         <section id="rhythm-stats" class="tab-content">
           <nav>
             <a onclick="showTab('lab')">← Back to Lab</a>
@@ -824,7 +816,6 @@
             <a href="javascript:void(0)" onclick="window.scrollTo(0,0)">↑ TOP</a>
           </div>
         </section>
-        <!-- QUESTIONS? SECTION -->
         <section id="questions?" class="tab-content">
           <dl class="questions-list">
             <dt>Who is Floydimus? Is it your real name?</dt>
@@ -848,7 +839,6 @@
             <dd>Warrant canary.</dd>
           </dl>
         </section>
-        <!-- CONTACT SECTION -->
         <section id="contact" class="tab-content">
           <p> For queries, creative insults, or personalised death threats, write your letters to <span class="email-text">sudo[at]prismo[dot]net</span>. </p>
           <p>If emails don't get through, try smoke signals or sending pigeons, ask them to fly east.</p>
@@ -875,12 +865,35 @@
         } else if (tabId.startsWith("host-project") || tabId === "rhythm-stats") {
           document.getElementById("nav-lab").classList.add("active");
         }
+        
+        // Update URL hash without reloading the page
+        if (history.replaceState) {
+          history.replaceState(null, null, '#' + tabId);
+        } else {
+          location.hash = '#' + tabId;
+        }
+
         window.scrollTo(0, 0);
       }
-      // Initialise ticker and show about tab
+
+      // Handle the initial load based on URL hash
+      function handleDeepLink() {
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+          showTab(hash);
+        }
+      }
+
+      // Initialise ticker and handle potential deep link
       window.onload = function() {
         updateUnix();
         setInterval(updateUnix, 1000);
+        handleDeepLink();
+      };
+
+      // Listen for browser back/forward buttons
+      window.onpopstate = function() {
+        handleDeepLink();
       };
     </script><script>
       (function() {
